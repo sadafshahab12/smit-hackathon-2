@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import ThankYou from "./pages/ThankYou";
+import Footer from "./components/Footer";
 function App() {
   return (
     <>
@@ -15,6 +16,7 @@ function App() {
           <Route path="/thank-you" element={<ThankYou />} />
           <Route path="/admin/dashboard" element={<Dashboard />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );

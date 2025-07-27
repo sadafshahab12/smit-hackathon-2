@@ -13,17 +13,26 @@ const Dashboard = () => {
         const response = await axios.get(
           `${import.meta.env.VITE_BACKEND_BASE_URL}/api/feedback`
         );
-        setStdFeedback(response.data.feedbacks);
+
+        const feedbacks = Array.isArray(response?.data?.feedbacks)
+          ? response.data.feedbacks
+          : [];
+
+        setStdFeedback(feedbacks);
+
         setTimeout(() => {
           setLoading(false);
         }, 1000);
       } catch (error) {
+        console.error("Error fetching feedbacks:", error);
         toast.error("Error While Fetching Data. Please try again later.", {
           position: "top-right",
           duration: 2000,
         });
+        setLoading(false);
       }
     };
+
     fetchData();
   }, []);
 
@@ -36,7 +45,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="px-4 py-10 max-w-5xl mx-auto">
+    <div className="px-4 py-10 max-w-5xl mx-auto h-auto">
       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
         Student Feedbacks Management System
       </h2>
