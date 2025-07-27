@@ -48,7 +48,7 @@ const Navbar = () => {
         >
           {/* Hamburger icon */}
           <svg
-            className="w-6 h-6"
+            className="w-6 h-6 cursor-pointer"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -61,7 +61,7 @@ const Navbar = () => {
         {/* Menu items */}
         <div
           className={`flex-col md:flex-row md:flex md:items-center items-center absolute z-1 md:static bg-white md:bg-transparent top-15 left-0 md:h-auto h-screen w-full md:w-auto transition-all duration-300 ease-in-out ${
-            menuOpen ? "flex" : "hidden"
+            menuOpen ? "flex space-y-4" : "hidden"
           } md:space-x-4 py-4 md:py-0 shadow md:shadow-none`}
         >
           <Link

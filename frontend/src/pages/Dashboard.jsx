@@ -46,11 +46,11 @@ const Dashboard = () => {
           <p className="text-center text-gray-600">No Feedback Found.</p>
         </div>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-2 ">
           {stdFeedback.map((feedback) => (
             <div
               key={feedback._id}
-              className="bg-white shadow-md rounded-lg p-6 border border-gray-200 w-full md:w-[95%] max-w-[500px] mx-auto"
+              className="bg-white shadow-md rounded-lg p-6 border border-gray-200 "
             >
               <h3 className="text-lg font-semibold mb-1 text-gray-900">
                 {feedback.name}
