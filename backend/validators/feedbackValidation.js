@@ -16,7 +16,7 @@ export const validateFeedback = [
   body("course")
     .notEmpty()
     .withMessage("Course is required")
-    .isIn(["React", "NodeJS", "MERN Bootcamp", "UI/UX"])
+    .isIn(["React", "NodeJS", "Mern Stack Development", "Tailwind" , "Nextjs"])
     .withMessage("Invalid course selected"),
 
   body("rating")
@@ -29,5 +29,5 @@ export const validateFeedback = [
     .notEmpty()
     .withMessage("Comments are required")
     .isLength({ min: 50 })
-    .withMessage("Comments must be at least 50 characters"),
+    .withMessage("Comments must be at least 20 characters"),
 ];

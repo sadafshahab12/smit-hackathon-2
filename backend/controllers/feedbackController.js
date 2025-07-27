@@ -16,6 +16,7 @@ export const createStudentFeedback = async (req, res) => {
   try {
     const feedback = await Feedback.create(req.body);
     console.log(feedback);
+    console.log(req.body.course)
     res.status(201).json({
       success: true,
       message: "Feedback submitted successfully",

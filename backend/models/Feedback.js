@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const studentFeedback = new mongoose.Schema(
   {
     name: {
@@ -17,7 +18,7 @@ const studentFeedback = new mongoose.Schema(
       type: String,
       required: [true, "Course is required"],
       enum: {
-        values: ["React", "NodeJS", "Mern Stack Development", "Tailwind"],
+        values: ["React", "NodeJS", "Mern Stack Development", "Tailwind" , "Nextjs"],
         message: "{VALUE} is not a valid course",
       },
     },

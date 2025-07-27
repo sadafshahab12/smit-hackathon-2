@@ -23,13 +23,10 @@ const StdFeedback = () => {
 
   const handleFeedbackSubmit = async (e) => {
     e.preventDefault();
-    if (
-      !feedback.name ||
-      !feedback.email ||
-      !feedback.course ||
-      !feedback.rating ||
-      !feedback.comments
-    ) {
+
+    // ✅ Basic empty fields check
+    const { name, email, course, rating, comments } = feedback;
+    if (!name || !email || !course || !rating || !comments) {
       toast.error("All fields are required", {
         position: "top-right",
         duration: 2000,
@@ -42,7 +39,8 @@ const StdFeedback = () => {
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/feedback`,
         {
           ...feedback,
-          rating: Number(feedback.rating), // Ensure number
+          course: feedback.course.trim(),
+          rating: Number(feedback.rating), // Ensure rating is a number
         }
       );
 
@@ -58,17 +56,27 @@ const StdFeedback = () => {
         rating: "",
         comments: "",
       });
-      navigate("/thank-you")
+
+      navigate("/thank-you");
     } catch (error) {
-      // console.log("Error Creating Event", error.response.data);
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        toast.error(error.response.data.message, {
+      // ✅ Enhanced Error Handling for message and validation errors
+      const errorData = error.response?.data;
+      console.error("Feedback submission error:", errorData);
+
+      if (errorData?.message) {
+        toast.error(errorData.message, {
           position: "top-right",
-          duration: 2000,
+          duration: 3000,
+        });
+      } else if (Array.isArray(errorData?.errors)) {
+        toast.error(errorData.errors[0]?.msg || errorData.errors[0], {
+          position: "top-right",
+          duration: 3000,
+        });
+      } else {
+        toast.error("Something went wrong", {
+          position: "top-right",
+          duration: 3000,
         });
       }
     }
@@ -109,10 +117,12 @@ const StdFeedback = () => {
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
         >
           <option value="">-- Select a Course --</option>
+          {/* ✅ Values must match enum exactly */}
           <option value="React">React</option>
           <option value="NodeJS">NodeJS</option>
           <option value="Mern Stack Development">Mern Stack Development</option>
           <option value="Tailwind">Tailwind</option>
+          <option value="Nextjs">Nextjs</option>
         </select>
 
         <input
