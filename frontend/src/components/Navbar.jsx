@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AdminLoginModal from "./AdminLoginModal";
-
+import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import { IoCloseOutline } from "react-icons/io5";
 const Navbar = () => {
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const adminToken = localStorage.getItem("adminToken");
+    if (adminToken) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
@@ -14,8 +23,14 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("adminToken");
     setIsLoggedIn(false);
+    setMenuOpen(false);
     navigate("/");
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen((prev) => !prev);
   };
 
   return (
@@ -25,10 +40,34 @@ const Navbar = () => {
           <Link to="/">Student Portal</Link>
         </div>
 
-        <div className="space-x-4">
+        {/* Hamburger button for small screens */}
+        <button
+          onClick={toggleMenu}
+          className="md:hidden text-gray-700 focus:outline-none"
+          aria-label="Toggle menu"
+        >
+          {/* Hamburger icon */}
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {menuOpen ? <IoCloseOutline size={22} className="cursor-pointer"/> : <HiOutlineMenuAlt3 size={22} className="cursor-pointer"/>}
+          </svg>
+        </button>
+
+        {/* Menu items */}
+        <div
+          className={`flex-col md:flex-row md:flex md:items-center items-center absolute z-1 md:static bg-white md:bg-transparent top-15 left-0 md:h-auto h-screen w-full md:w-auto transition-all duration-300 ease-in-out ${
+            menuOpen ? "flex" : "hidden"
+          } md:space-x-4 py-4 md:py-0 shadow md:shadow-none`}
+        >
           <Link
             to="/"
-            className="text-gray-700 hover:text-indigo-600 font-medium transition"
+            className="block px-6 py-2 text-gray-700 hover:text-indigo-600 font-medium transition"
+            onClick={() => setMenuOpen(false)}
           >
             Feedback Form
           </Link>
@@ -37,21 +76,25 @@ const Navbar = () => {
             <>
               <Link
                 to="/admin/dashboard"
-                className="text-gray-700 hover:text-indigo-600 font-medium transition"
+                className="block px-6 py-2 text-gray-700 hover:text-indigo-600 font-medium transition"
+                onClick={() => setMenuOpen(false)}
               >
                 Dashboard
               </Link>
               <button
                 onClick={handleLogout}
-                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition"
+                className="block px-6 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition w-auto text-left md:text-center"
               >
                 Logout
               </button>
             </>
           ) : (
             <button
-              onClick={() => setShowLogin(true)}
-              className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition"
+              onClick={() => {
+                setShowLogin(true);
+                setMenuOpen(false);
+              }}
+              className="block px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition w-auto text-left md:text-center"
             >
               Admin Login
             </button>

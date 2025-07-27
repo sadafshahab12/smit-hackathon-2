@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const StdFeedback = () => {
+  const navigate = useNavigate();
   const [feedback, setFeeback] = useState({
     name: "",
     email: "",
@@ -56,6 +58,7 @@ const StdFeedback = () => {
         rating: "",
         comments: "",
       });
+      navigate("/thank-you")
     } catch (error) {
       // console.log("Error Creating Event", error.response.data);
       if (

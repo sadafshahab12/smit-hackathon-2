@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-const AdminLoginModal = ({ onClose }) => {
+const AdminLoginModal = ({ onClose, onLoginSuccess }) => {
   const navigate = useNavigate();
+
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -28,7 +29,8 @@ const AdminLoginModal = ({ onClose }) => {
         `${import.meta.env.VITE_BACKEND_BASE_URL}/api/admin-auth/login`,
         credentials
       );
-      console.log(res.data);
+      const { token } = res.data;
+      localStorage.setItem("adminToken", token);
       toast.success(res.data.message, {
         position: "top-right",
         duration: 2000,
@@ -38,6 +40,12 @@ const AdminLoginModal = ({ onClose }) => {
         email: "",
         password: "",
       });
+
+      onLoginSuccess(); // Notify Navbar about login success
+
+      onClose();
+      // No need to navigate here if Navbar handles redirect on login success
+      // navigate("/admin/dashboard");
     } catch (error) {
       console.error(
         "Error while admin login",
@@ -52,11 +60,8 @@ const AdminLoginModal = ({ onClose }) => {
           position: "top-right",
           duration: 2000,
         });
-        return;
       }
     }
-    onClose(); // close modal after
-    navigate("/dashboard");
   };
 
   return (
