@@ -38,14 +38,14 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div>
+      <div className="h-screen">
         <Loader />
       </div>
     );
   }
 
   return (
-    <div className="px-4 py-10 max-w-5xl mx-auto h-auto">
+    <div className="px-5 sm:px-8 py-10  h-auto">
       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
         Student Feedbacks Management System
       </h2>
@@ -55,7 +55,7 @@ const Dashboard = () => {
           <p className="text-center text-gray-600">No Feedback Found.</p>
         </div>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 ">
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
           {stdFeedback.map((feedback) => (
             <div
               key={feedback._id}
@@ -75,7 +75,7 @@ const Dashboard = () => {
                   {"☆".repeat(5 - feedback.rating)}
                 </span>
               </p>
-              <p className="text-gray-700 mb-4 break-words whitespace-pre-wrap max-h-40 overflow-y-auto">
+              <p className="text-sm text-gray-700 mb-4 break-words whitespace-pre-wrap max-h-40 overflow-y-auto">
                 {feedback.comments}
               </p>
               <p className="text-xs text-gray-400">

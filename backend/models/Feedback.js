@@ -30,7 +30,7 @@ const studentFeedback = new mongoose.Schema(
     comments: {
       type: String,
       required: [true, "Comments are required"],
-      minlength: [50, "Comments must be at least 100 characters"],
+      minlength: [20, "Comments must be at least 20 characters"],
     },
   },
   {

@@ -41,11 +41,9 @@ const AdminLoginModal = ({ onClose, onLoginSuccess }) => {
         password: "",
       });
 
-      onLoginSuccess(); // Notify Navbar about login success
+      onLoginSuccess();
 
       onClose();
-      // No need to navigate here if Navbar handles redirect on login success
-      // navigate("/admin/dashboard");
     } catch (error) {
       console.error(
         "Error while admin login",
@@ -65,8 +63,8 @@ const AdminLoginModal = ({ onClose, onLoginSuccess }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-xl bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-sm shadow-lg">
+    <div className="fixed inset-0 bg-black/20 backdrop-blur-xl bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg p-6 w-full max-w-sm shadow-lg m-2">
         <h2 className="text-xl font-semibold mb-4">Admin Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input

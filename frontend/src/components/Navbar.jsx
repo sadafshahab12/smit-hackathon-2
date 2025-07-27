@@ -40,7 +40,6 @@ const Navbar = () => {
           <Link to="/">Student Portal</Link>
         </div>
 
-        {/* Hamburger button for small screens */}
         <button
           onClick={toggleMenu}
           className="md:hidden text-gray-700 focus:outline-none"
@@ -54,7 +53,11 @@ const Navbar = () => {
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            {menuOpen ? <IoCloseOutline size={22} className="cursor-pointer"/> : <HiOutlineMenuAlt3 size={22} className="cursor-pointer"/>}
+            {menuOpen ? (
+              <IoCloseOutline size={22} className="cursor-pointer" />
+            ) : (
+              <HiOutlineMenuAlt3 size={22} className="cursor-pointer" />
+            )}
           </svg>
         </button>
 
