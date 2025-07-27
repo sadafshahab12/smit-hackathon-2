@@ -48,7 +48,7 @@ export const getAllFeedback = async (req, res) => {
     const feedbacks = await Feedback.find().sort({ createdAt: -1 }); //newest feedback
     res.status(200).json({
       success: true,
-      data: feedbacks,
+      feedbacks,
     });
   } catch (error) {
     res.status(500).json({
